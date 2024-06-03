@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/pranavlunkad/Downloads/pizza_sales/PIZZA.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="832"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainorders"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="PIZZAHUT" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="39"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="order_details" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="1" mode="1"/></sort><column_widths><column index="1" value="89"/><column index="2" value="52"/><column index="3" value="94"/><column index="4" value="51"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="orders" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="69"/><column index="3" value="56"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="pizza_types" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="80"/><column index="2" value="233"/><column index="3" value="54"/><column index="4" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="pizzas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="94"/><column index="2" value="80"/><column index="3" value="38"/><column index="4" value="39"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="totalview" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT count(order_id)as total_orders From orders
+
+</sql><sql name="SQL 2">SELECT
+round (order_details.quantity * pizzas.price) As totalprice
+ FROM order_details join pizzas
+ on pizzas.pizza_id = order_details.pizza_id
+</sql><sql name="SQL 3">SELECT
+pizza_types.name, pizzas.price
+FROM pizza_types join pizzas
+pizzas ON pizza_types.pizza_type_id = pizzas.pizza_type_id
+Order BY pizzas.price DESC
+Limit 6</sql><sql name="SQL 4">SELECT quantity, count(order_details_id) AS Details
+from	order_details group by quantity</sql><sql name="SQL 5">SELECT
+pizzas.size , count(order_details.order_details_id) AS order_count
+from pizzas  join order_details	
+ON 
+pizzas.pizza_id = order_details.pizza_id
+group by pizzas.size ORDER BY order_count desc;	</sql><sql name="SQL 6">select  pizza_types.name, Sum(order_details.quantity)  AS quantity, round(avg(pizzas.price)) AS Average
+from 
+pizza_types join pizzas
+on pizza_types.pizza_type_id = pizzas.pizza_type_id
+JOIN order_details
+on order_details.pizza_id = pizzas.pizza_id
+GROUP BY pizza_types.name ORDER BY quantity DESC  
+LIMIT 5</sql><sql name="SQL 7">SELECT pizza_types.category,
+sum (order_details.quantity) AS quantity
+FROM pizza_types join pizzas
+On pizza_types.pizza_type_id = pizzas.pizza_type_id
+join order_details
+on order_details.pizza_id = pizzas.pizza_id
+group by pizza_types.category ORDER By quantity desc</sql><sql name="SQL 8">SELECT
+date(time)as hour, count(order_id) from orders</sql><sql name="SQL 9">SELECT
+count(name)	
+from
+pizza_types
+Group By category</sql><sql name="SQL 10"></sql><current_tab id="9"/></tab_sql></sqlb_project>
